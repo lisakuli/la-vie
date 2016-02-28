@@ -1,0 +1,11 @@
+{
+  "name": "la-vie",
+  "version": "0.0.0",
+  "description": "C'est la vie",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lisakuli",
+  "license": "MIT"
+}
