@@ -4,7 +4,8 @@
   "description": "C'est la vie",
   "main": "index.js",
   "scripts": {
-    
+    "dev-server": "webpack-dev-server --progress --colors --config ./app/webpack.config.js --content-base app/",
+    "api": "nodemon api/app.js"
   },
   "author": "lisakuli",
   "license": "MIT",
