@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/la-vie');
 var recipeSchema = mongoose.Schema({
 	title: String,
 	description: String,
-	thumbnail: String,
+	img: String,
 	link: String
 });
 
@@ -35,6 +35,19 @@ app.get('/recipe', function(req, res) {
 })
 
 
+app.get('/recipe/:id', function(req, res) {
+	console.log("ID: ", req.params.id);
+	Recipe.findById(req.params.id)
+		.then(function(recipe) {
+			res.json(recipe);
+		})
+		.catch(function(err) {
+			console.log(err);
+			res.status(500).json(err);
+		})
+})
+
+
 app.post('/recipe', function(req, res) {
 	console.log(req.body);
 	var body = req.body;
@@ -46,7 +59,7 @@ app.post('/recipe', function(req, res) {
 		if (err) return res.json(err);
 		res.sendStatus(200);
 	});
-	
+
 });
 
 
