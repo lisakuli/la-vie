@@ -5,7 +5,19 @@ var recipeSchema = mongoose.Schema({
 	title: String,
 	description: String,
 	img: String,
-	link: String
+	ingredients: [{
+		ingredient: String,
+		unit: {
+			type: String,
+			enum: ['ml', 'g', 'tbsp', 'tsp']
+		},
+		displayUnit: {
+			type: String,
+			enum: ['l', 'dl', 'ml', 'kg', 'g', 'tbsp', 'tsp']
+		},
+		amount: Number
+	}],
+	method: [String]
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
@@ -49,7 +61,6 @@ app.get('/recipe/:id', function(req, res) {
 
 
 app.post('/recipe', function(req, res) {
-	console.log(req.body);
 	var body = req.body;
 
 	//todo: check if body is valid input
@@ -59,7 +70,17 @@ app.post('/recipe', function(req, res) {
 		if (err) return res.json(err);
 		res.sendStatus(200);
 	});
+});
 
+app.put('/recipe/:id', function(req, res) {
+	Recipe.update({_id: req.params.id}, { $set: req.body }, { runValidators: true })
+		.then(function() {
+			res.sendStatus(200);
+		})
+		.catch(function(err) {
+			console.log(err);
+			res.status(500).json(err);
+		})
 });
 
 
